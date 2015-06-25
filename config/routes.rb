@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  resources :domains
   get 'profile' => 'profile#index'
 
   devise_for :users, controllers: { omniauth_callbacks: "omniauth_callbacks" }
   get 'home/index'
+
+  resources :domains
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
