@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where(:user => current_user)
+    @orders = Order.where(:owner => current_user)
   end
 
   # GET /orders/1
