@@ -1,2 +1,27 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<h1>Home</h1>
+
+<p>Hello, <%= current_user.given_name %>!</p>
+
+<% if @user_orders.any? %>
+    <p>Open orders you have created:</p>
+    <ul>
+        <% @user_orders.each do |order| %>
+            <li><%= link_to order.name, order %></li>
+        <% end %>
+    </ul>
+<% else %>
+    <p>You have not created any open orders.</p>
+<% end %>
+
+<p><%= link_to 'Create a new order', new_order_path %>.</p>
+
+<% if @domain_orders.any? %>
+    <p>Open orders in your domain:</p>
+    <ul>
+        <% @domain_orders.each do |order| %>
+            <li><%= link_to order.name, order %></li>
+        <% end %>
+    </ul>
+<% else %>
+    <p>There are no <%= 'other ' if @user_orders.any? %>open orders in your domain.</p>
+<% end %>

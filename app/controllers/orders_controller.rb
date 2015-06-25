@@ -1,10 +1,12 @@
 class OrdersController < ApplicationController
+  before_filter :authenticate_user!
+
   before_action :set_order, only: [:show, :edit, :update, :destroy]
 
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where(:user => current_user)
   end
 
   # GET /orders/1
@@ -25,6 +27,8 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.domain = current_user.domain
+    @order.user = current_user
 
     respond_to do |format|
       if @order.save

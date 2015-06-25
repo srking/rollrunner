@@ -3,7 +3,9 @@
 one:
   name: MyString
   domain_id: 
+  user_id: 
 
 two:
   name: MyString
   domain_id: 
+  user_id: 

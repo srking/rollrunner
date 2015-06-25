@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
     belongs_to :domain
+    has_many :orders
+    
     devise :database_authenticatable, :registerable, :omniauthable,
     :recoverable, :rememberable, :trackable, :validatable,
     omniauth_providers: [:google_oauth2]
