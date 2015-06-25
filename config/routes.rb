@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'login' => 'login#index'
+
+  resources :order_items
+  resources :orders
   resources :domains
   get 'profile' => 'profile#index'
 
