@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+    before_filter :authenticate_user!
+
     def create
         User.create(user_params)
     end
