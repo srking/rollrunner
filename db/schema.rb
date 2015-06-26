@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626091000) do
+ActiveRecord::Schema.define(version: 20150626111158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,17 @@ ActiveRecord::Schema.define(version: 20150626091000) do
 
   add_index "orders", ["domain_id"], name: "index_orders_on_domain_id", using: :btree
   add_index "orders", ["owner_id"], name: "index_orders_on_owner_id", using: :btree
+
+  create_table "roll_ingredients", force: :cascade do |t|
+    t.integer  "roll_id"
+    t.integer  "ingredient_id"
+    t.boolean  "include",       default: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "roll_ingredients", ["ingredient_id"], name: "index_roll_ingredients_on_ingredient_id", using: :btree
+  add_index "roll_ingredients", ["roll_id"], name: "index_roll_ingredients_on_roll_id", using: :btree
 
   create_table "rolls", force: :cascade do |t|
     t.integer  "order_id"
@@ -77,6 +88,8 @@ ActiveRecord::Schema.define(version: 20150626091000) do
 
   add_foreign_key "orders", "domains"
   add_foreign_key "orders", "users", column: "owner_id"
+  add_foreign_key "roll_ingredients", "ingredients"
+  add_foreign_key "roll_ingredients", "rolls"
   add_foreign_key "rolls", "orders"
   add_foreign_key "rolls", "users"
   add_foreign_key "users", "domains"
