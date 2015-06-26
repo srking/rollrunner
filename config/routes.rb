@@ -3,8 +3,7 @@ Rails.application.routes.draw do
   resources :ingredients
 
   resources :orders do
-      resources :order_items
-  end
+      end
   
   get 'login' => 'login#index'
 

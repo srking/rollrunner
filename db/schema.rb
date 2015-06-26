@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625164634) do
+ActiveRecord::Schema.define(version: 20150626091000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,21 +28,6 @@ ActiveRecord::Schema.define(version: 20150625164634) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ingredients_order_items", id: false, force: :cascade do |t|
-    t.integer "order_item_id", null: false
-    t.integer "ingredient_id", null: false
-  end
-
-  create_table "order_items", force: :cascade do |t|
-    t.integer  "order_id"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "order_items", ["order_id"], name: "index_order_items_on_order_id", using: :btree
-  add_index "order_items", ["user_id"], name: "index_order_items_on_user_id", using: :btree
-
   create_table "orders", force: :cascade do |t|
     t.string   "name"
     t.integer  "domain_id"
@@ -55,6 +40,16 @@ ActiveRecord::Schema.define(version: 20150625164634) do
 
   add_index "orders", ["domain_id"], name: "index_orders_on_domain_id", using: :btree
   add_index "orders", ["owner_id"], name: "index_orders_on_owner_id", using: :btree
+
+  create_table "rolls", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "rolls", ["order_id"], name: "index_rolls_on_order_id", using: :btree
+  add_index "rolls", ["user_id"], name: "index_rolls_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -80,9 +75,9 @@ ActiveRecord::Schema.define(version: 20150625164634) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  add_foreign_key "order_items", "orders"
-  add_foreign_key "order_items", "users"
   add_foreign_key "orders", "domains"
   add_foreign_key "orders", "users", column: "owner_id"
+  add_foreign_key "rolls", "orders"
+  add_foreign_key "rolls", "users"
   add_foreign_key "users", "domains"
 end

@@ -15,16 +15,5 @@
   <%= @order.owner %>
 </p>
 
-<p>
-  <strong>Items:</strong>
-</p>
-<ul>
-    <% @order.order_items.each do |order_item| %>
-      <%= order_item.user %>
-    <% end %>
-</ul>
-
-<%= render 'order_items/form' %>
-
 <%= link_to 'Edit', edit_order_path(@order) %>
 <%= link_to 'Back', orders_path %>
