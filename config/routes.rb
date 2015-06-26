@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  resources :order_items
-  resources :orders
+  resources :ingredients
+
+  resources :orders do
+      resources :order_items
+  end
+  
   get 'login' => 'login#index'
 
   resources :domains

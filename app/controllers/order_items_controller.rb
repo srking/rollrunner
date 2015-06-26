@@ -26,17 +26,15 @@ class OrderItemsController < ApplicationController
   # POST /order_items
   # POST /order_items.json
   def create
-    @order_item = OrderItem.new(order_item_params)
-
-    respond_to do |format|
-      if @order_item.save
-        format.html { redirect_to @order_item, notice: 'Order item was successfully created.' }
-        format.json { render :show, status: :created, location: @order_item }
-      else
-        format.html { render :new }
-        format.json { render json: @order_item.errors, status: :unprocessable_entity }
-      end
+    @order = Order.find(params[:order_id])
+    @order_item = @order.order_items.create(order_item_params)
+    params[:order_item][:ingredients].each do |ingredient_id|
+        unless ingredient_id == ''
+            ingredient = Ingredient.where(:id => ingredient_id.to_i)
+            @order_item.ingredients.append ingredient
+        end
     end
+    redirect_to order_path(@order)
   end
 
   # PATCH/PUT /order_items/1
@@ -71,6 +69,6 @@ class OrderItemsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_item_params
-      params.require(:order_item).permit(:order_id, :user_id)
+      params.permit(:order_id, :user_id)
     end
 end
