@@ -1,0 +1,21 @@
+%h1 Home
+%p
+  Hello, #{current_user.given_name}!
+- if @user_orders.any?
+  %p Open orders you have created:
+  %ul
+    - @user_orders.each do |order|
+      %li= link_to order.name, order
+- else
+  %p You have not created any open orders.
+%p
+  = link_to 'Create a new order', new_order_path
+  \.
+- if @domain_orders.any?
+  %p Open orders in your domain:
+  %ul
+    - @domain_orders.each do |order|
+      %li= link_to order.name, order
+- else
+  %p
+    There are no #{'other ' if @user_orders.any?}open orders in your domain.

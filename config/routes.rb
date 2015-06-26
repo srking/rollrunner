@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :rolls
   resources :ingredients
 
   resources :orders do
       resources :order_items
   end
-  
+
   get 'login' => 'login#index'
 
   resources :domains

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150625164634) do
+ActiveRecord::Schema.define(version: 20150626091000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,16 @@ ActiveRecord::Schema.define(version: 20150625164634) do
   add_index "orders", ["domain_id"], name: "index_orders_on_domain_id", using: :btree
   add_index "orders", ["owner_id"], name: "index_orders_on_owner_id", using: :btree
 
+  create_table "rolls", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "rolls", ["order_id"], name: "index_rolls_on_order_id", using: :btree
+  add_index "rolls", ["user_id"], name: "index_rolls_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -84,5 +94,7 @@ ActiveRecord::Schema.define(version: 20150625164634) do
   add_foreign_key "order_items", "users"
   add_foreign_key "orders", "domains"
   add_foreign_key "orders", "users", column: "owner_id"
+  add_foreign_key "rolls", "orders"
+  add_foreign_key "rolls", "users"
   add_foreign_key "users", "domains"
 end
