@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :rolls
   resources :ingredients
 
   resources :orders do
-      end
-  
+    resources :rolls, shallow: true
+  end
+
   get 'login' => 'login#index'
 
   resources :domains

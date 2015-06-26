@@ -5,15 +5,23 @@
   <%= @order.name %>
 </p>
 
-<p>
-  <strong>Domain:</strong>
-  <%= @order.domain %>
-</p>
+<h2>Rolls</h2>
+<% @order.rolls.each do |roll| %>
+  <p>
+    <strong>Owner:</strong>
+    <%= roll.owner %>
+  </p>
+  <%= link_to 'Remove roll', [roll],
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %>
+<% end %>
 
-<p>
-  <strong>Owner:</strong>
-  <%= @order.owner %>
-</p>
+<h2>Add a roll:</h2>
+<%= form_for([@order, @order.rolls.build]) do |f| %>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
 
 <%= link_to 'Edit', edit_order_path(@order) %>
 <%= link_to 'Back', orders_path %>

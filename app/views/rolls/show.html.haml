@@ -5,8 +5,8 @@
   = @roll.order
 %p
   %b User:
-  = @roll.user
+  = @roll.owner
 
 = link_to 'Edit', edit_roll_path(@roll)
 \|
-= link_to 'Back', rolls_path
+= link_to 'Back', order_path(@roll.order)
