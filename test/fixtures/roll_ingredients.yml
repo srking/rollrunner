@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  roll_id: 
+  ingredient_id: 
+  include: false
+
+two:
+  roll_id: 
+  ingredient_id: 
+  include: false

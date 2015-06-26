@@ -10,6 +10,8 @@ class RollsController < ApplicationController
   # GET /rolls/1
   # GET /rolls/1.json
   def show
+    @included_ingredients = @roll.ingredients.references(:roll_ingredients).where(roll_ingredients: { include: true })
+    @not_included_ingredients = @roll.ingredients.references(:roll_ingredients).where(roll_ingredients: { include: false })
   end
 
   # GET /rolls/new
@@ -27,6 +29,9 @@ class RollsController < ApplicationController
     @order = Order.find(params[:order_id])
     @roll = @order.rolls.create(roll_params)
     @roll.owner = current_user
+    Ingredient.all do |ingredient|
+      @roll.ingredients << ingredient
+    end
 
     respond_to do |format|
       if @roll.save

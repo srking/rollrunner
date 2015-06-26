@@ -7,6 +7,28 @@
   %b User:
   = @roll.owner
 
+%h2 Ingredients
+%ul
+  - @not_included_ingredients.each do |ingredient|
+    %li= ingredient.name
+
+= form_for @roll do |f|
+  - if @roll.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
+      %ul
+        - @roll.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :order
+    = f.text_field :order
+  .field
+    = f.label :owner
+    = f.text_field :owner
+  .actions
+    = f.submit 'Save'
+
 = link_to 'Edit', edit_roll_path(@roll)
 \|
 = link_to 'Back', order_path(@roll.order)
