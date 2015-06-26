@@ -10,7 +10,7 @@
         %i.fa.fa-cutlery
       .row-content
         .least-content
-          WTF
+          -# = link_to 'Remove', roll_path(roll), method: :delete, class: "btn btn-warning btn-sm"
         %h4.list-group-item-heading
           = roll.owner.given_name
         %p.list-group-item-text
@@ -19,7 +19,9 @@
             |
           %br
           %br
-          = link_to 'Edit', roll_path(roll), class: "btn btn-warning btn-sm"
+          = link_to 'Edit', roll_path(roll), class: "btn btn-primary btn-sm"
+          = link_to 'Remove', roll_path(roll), method: :delete, class: "btn btn-warning btn-sm"
+
       .list-group-separator
       %br
 

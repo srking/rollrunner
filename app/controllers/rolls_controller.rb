@@ -68,6 +68,7 @@ class RollsController < ApplicationController
   # DELETE /rolls/1
   # DELETE /rolls/1.json
   def destroy
+    @roll.roll_ingredients.destroy
     @roll.destroy
     respond_to do |format|
       format.html { redirect_to order_url(@roll.order), notice: 'Roll was successfully removed.' }
