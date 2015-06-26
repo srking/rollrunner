@@ -13,4 +13,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require bootstrap
+//= require material
+//= require ripples
 //= require_tree .
+
+
+$(document).ready(function() {
+                // This command is used to initialize some elements and make them work properly
+                $.material.init();
+            });
