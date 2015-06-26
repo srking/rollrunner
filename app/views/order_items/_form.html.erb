@@ -1,9 +1,0 @@
-<%= form_for([@order, @order.order_items.build]) do |f| %>
-
-<%= f.select :ingredients, Ingredient.all.map { |i| [i.name, i.id] }, {}, { :multiple => true, :size => 8 } %>
-
-<div class="actions">
-    <%= f.submit %>
-</div>
-
-<% end %>

@@ -24,7 +24,9 @@ class RollsController < ApplicationController
   # POST /rolls
   # POST /rolls.json
   def create
-    @roll = Roll.new(roll_params)
+    @order = Order.find(params[:order_id])
+    @roll = @order.rolls.create(roll_params)
+    @roll.owner = current_user
 
     respond_to do |format|
       if @roll.save
@@ -56,7 +58,7 @@ class RollsController < ApplicationController
   def destroy
     @roll.destroy
     respond_to do |format|
-      format.html { redirect_to rolls_url, notice: 'Roll was successfully destroyed.' }
+      format.html { redirect_to order_url(@roll.order), notice: 'Roll was successfully removed.' }
       format.json { head :no_content }
     end
   end
@@ -69,6 +71,6 @@ class RollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def roll_params
-      params.require(:roll).permit(:order_id, :user_id)
+      params.permit(:order_id)
     end
 end
