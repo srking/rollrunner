@@ -6,6 +6,8 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    - if current_user
+      = render partial: 'layouts/navbar'
     .container
       %p.notice= notice
       %p.alert= alert
