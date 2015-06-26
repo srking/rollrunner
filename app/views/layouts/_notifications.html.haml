@@ -1,0 +1,29 @@
+- if flash[:alert]
+  :javascript
+    $.notify({
+      icon: " fa fa-lg fa-times ",
+      title: " ",
+      message: " #{flash[:alert]} ",
+    },{
+      type: 'danger',
+      placement: {
+          from: "top",
+          align: "center"
+        },
+    });
+
+
+- if flash[:notice]
+  :javascript
+    $.notify(
+    {
+      icon: " fa fa-lg fa-check ",
+      title: " ",
+      message: " #{flash[:notice]} ",
+    },{
+      type: 'success',
+      placement: {
+          from: "top",
+          align: "center"
+        },
+    });

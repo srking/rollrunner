@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require material
 //= require ripples
+//= require bootstrap-notify
 //= require_tree .
 
 

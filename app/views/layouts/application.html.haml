@@ -9,6 +9,5 @@
     - if current_user
       = render partial: 'layouts/navbar'
     .container
-      %p.notice= notice
-      %p.alert= alert
+      = render partial: 'layouts/notifications'
       = yield
