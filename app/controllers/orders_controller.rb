@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(order_params)
     @order.domain = current_user.domain
-    @order.user = current_user
+    @order.owner = current_user
 
     respond_to do |format|
       if @order.save
