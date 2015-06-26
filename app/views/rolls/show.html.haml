@@ -1,15 +1,8 @@
 %p#notice= notice
 
-%p
-  %b Order:
-  = @roll.order
-%p
-  %b User:
-  = @roll.owner
-
 %h2 Ingredients
 %ul
-  - @not_included_ingredients.each do |ingredient|
+  - @roll.ingredients.each do |ingredient|
     %li= ingredient.name
 
 = form_for @roll do |f|
@@ -19,6 +12,9 @@
       %ul
         - @roll.errors.full_messages.each do |msg|
           %li= msg
+  - Ingredient.all.each do |ingredient|
+    = ingredient.name
+    = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
 
   .actions
     = f.submit 'Save'

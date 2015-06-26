@@ -1,22 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @order.name %>
-</p>
+<h1><%= @order.name %></h1>
 
-<h2>Rolls</h2>
+<h2>Ordered Rolls</h2>
+<ul>
 <% @order.rolls.each do |roll| %>
-  <p>
-    <strong>Owner:</strong>
-    <%= roll.owner.email %>
-  </p>
-  <%= link_to 'Remove roll', [roll],
+  <li>
+    <%= roll.owner.given_name %>
+    <%= link_to 'Edit', roll_path(roll) %>
+    <% if roll.owner == current_user %>
+    <%= link_to 'Remove', [roll],
               method: :delete,
               data: { confirm: 'Are you sure?' } %>
+    <% end %>
+  </li>
 <% end %>
+</ul>
 
-<h2>Add a roll:</h2>
+<h2>Add a roll</h2>
 <%= form_for([@order, @order.rolls.build]) do |f| %>
   <p>
     <%= f.submit %>
