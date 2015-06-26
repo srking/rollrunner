@@ -1,16 +1,19 @@
 = form_for @roll do |f|
-  - if @roll.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
-      %ul
-        - @roll.errors.full_messages.each do |msg|
-          %li= msg
+  %fieldset
+    - if @roll.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
+        %ul
+          - @roll.errors.full_messages.each do |msg|
+            %li= msg
+    - Ingredient.all.each do |ingredient|
+      .form-group
+        .checkbox
+          %label.checkbox-inline
+            = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+            = ingredient.name
 
-  .field
-    = f.label :order
-    = f.text_field :order
-  .field
-    = f.label :user
-    = f.text_field :user
-  .actions
-    = f.submit 'Save'
+
+    %br
+    %button.btn.btn-primary.btn-lg{:type => "submit"}
+      Add Roll

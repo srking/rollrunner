@@ -1,24 +1,25 @@
-%p#notice= notice
-
-%h2 Ingredients
-%ul
-  - @roll.ingredients.each do |ingredient|
-    %li= ingredient.name
+%h2 Select Your Ingredients:
+%br
 
 = form_for @roll do |f|
-  - if @roll.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
-      %ul
-        - @roll.errors.full_messages.each do |msg|
-          %li= msg
-  - Ingredient.all.each do |ingredient|
-    = ingredient.name
-    = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+  %fieldset
+    - if @roll.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
+        %ul
+          - @roll.errors.full_messages.each do |msg|
+            %li= msg
+    - Ingredient.all.each do |ingredient|
+      .form-group
+        .checkbox
+          %label.checkbox-inline
+            = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+            = ingredient.name
 
-  .actions
-    = f.submit 'Save'
 
-= link_to 'Edit', edit_roll_path(@roll)
-\|
-= link_to 'Back', order_path(@roll.order)
+    %br
+    %button.btn.btn-primary.btn-lg{:type => "submit"}
+      Add Roll
+
+%br
+= link_to 'Back To Order', order_path(@roll.order), class: "btn btn-info btn-sm"
