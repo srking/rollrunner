@@ -10,8 +10,9 @@ class RollsController < ApplicationController
   # GET /rolls/1
   # GET /rolls/1.json
   def show
-    @included_ingredients = @roll.ingredients.references(:roll_ingredients).where(roll_ingredients: { include: true })
-    @not_included_ingredients = @roll.ingredients.references(:roll_ingredients).where(roll_ingredients: { include: false })
+    @included_ingredients = @roll.ingredients.map do |i|
+      i.id
+    end
   end
 
   # GET /rolls/new
@@ -48,6 +49,12 @@ class RollsController < ApplicationController
   # PATCH/PUT /rolls/1.json
   def update
     respond_to do |format|
+      @roll.ingredients.clear
+      params[:roll][:ingredients].each do |ingredient_id|
+        if ingredient = Ingredient.where(:id => ingredient_id).first
+          @roll.ingredients << ingredient
+        end
+      end
       if @roll.update(roll_params)
         format.html { redirect_to @roll, notice: 'Roll was successfully updated.' }
         format.json { render :show, status: :ok, location: @roll }
