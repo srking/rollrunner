@@ -1,6 +1,9 @@
-%h2 Log In To RollRunner
-
-= link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-danger btn-lg"
+.jumbotron.home-page-jumbotron
+  %h1 RollRunner
+  %p Here be food...
+  %br
+  %p
+    = link_to "Sign in with Google", user_omniauth_authorize_path(:google_oauth2), class: "btn btn-danger btn-block"
 
 
 / = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|

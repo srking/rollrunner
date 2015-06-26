@@ -1,21 +1,48 @@
-%h1 Home
+%h1 Dashboard
+%br
+
 %p
-  Hello, #{current_user.given_name}!
+  = link_to 'Create a new order', new_order_path, class: "btn btn-info btn-lg"
+
 - if @user_orders.any?
-  %p Open orders you have created:
-  %ul
-    - @user_orders.each do |order|
-      %li= link_to order.name, order
+  %h3 Open orders you have created:
+  %br
+
+  .list-group
+    .list-group-item
+      - @user_orders.each do |order|
+        .row-action-primary
+          %i.fa.fa-cutlery
+        .row-content
+          .least-content
+            = order.created_at.strftime("%d %b %Y")
+          %h4.list-group-item-heading
+            = link_to order.name, order
+          %p.list-group-item-text
+            Rolls within this order:
+            = order.rolls.count
+      .list-group-separator
+
 - else
   %p You have not created any open orders.
-%p
-  = link_to 'Create a new order', new_order_path
-  \.
+
+
 - if @domain_orders.any?
   %p Open orders in your domain:
   %ul
     - @domain_orders.each do |order|
-      %li= link_to order.name, order
+      .row-action-primary
+        %i.fa.fa-cutlery
+      .row-content
+        .least-content
+          = order.created_at.strftime("%d %b %Y")
+        %h4.list-group-item-heading
+          = link_to order.name, order
+        %p.list-group-item-text
+          Rolls within this order:
+          = order.rolls.count
+    .list-group-separator
+
 - else
   %p
     There are no #{'other ' if @user_orders.any?}open orders in your domain.
