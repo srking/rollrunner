@@ -9,7 +9,7 @@
 <% @order.rolls.each do |roll| %>
   <p>
     <strong>Owner:</strong>
-    <%= roll.owner %>
+    <%= roll.owner.email %>
   </p>
   <%= link_to 'Remove roll', [roll],
               method: :delete,

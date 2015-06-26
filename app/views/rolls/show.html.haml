@@ -20,12 +20,6 @@
         - @roll.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :order
-    = f.text_field :order
-  .field
-    = f.label :owner
-    = f.text_field :owner
   .actions
     = f.submit 'Save'
 
