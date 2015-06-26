@@ -1,9 +1,6 @@
 %p#notice= notice
 
 %h2 Ingredients
-%ul
-  - @roll.ingredients.each do |ingredient|
-    %li= ingredient.name
 
 = form_for @roll do |f|
   - if @roll.errors.any?
@@ -12,9 +9,11 @@
       %ul
         - @roll.errors.full_messages.each do |msg|
           %li= msg
+  %ul
   - Ingredient.all.each do |ingredient|
-    = ingredient.name
-    = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+    %li
+      = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+      = ingredient.name
 
   .actions
     = f.submit 'Save'
