@@ -14,10 +14,12 @@
         .row-action-primary
           %i.fa.fa-cutlery
         .row-content
-          .least-content
-            = order.created_at.strftime("%d %b %Y")
+          .pull-right
+            = link_to 'Cancel order', order_path(order, :from => 'dashboard'), method: :delete, class: "btn btn-warning btn-sm"
           %h4.list-group-item-heading
             = link_to order.name, order
+            \|
+            = order.created_at.strftime("%d %b %Y")
           %p.list-group-item-text
             Rolls within this order:
             = order.rolls.count

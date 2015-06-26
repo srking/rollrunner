@@ -60,7 +60,11 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     respond_to do |format|
-      format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      if params[:from] == 'dashboard'
+        format.html { redirect_to root_url, notice: 'Order was successfully destroyed.' }
+      else
+        format.html { redirect_to orders_url, notice: 'Order was successfully destroyed.' }
+      end
       format.json { head :no_content }
     end
   end
