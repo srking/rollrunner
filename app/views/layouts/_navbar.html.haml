@@ -12,8 +12,9 @@
         = link_to('Dashboard', root_path)
       %li
         = link_to('New Order', new_order_path)
-      %li
-        = link_to('Admin', rails_admin_path)
+      - if current_user.try(:admin)
+        %li
+          = link_to('Admin', rails_admin_path)
 
 
 
