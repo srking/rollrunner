@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
     belongs_to :domain
-    has_many :orders
+    has_many :orders, foreign_key: :owner_id
     has_many :rolls
 
     devise :database_authenticatable, :registerable, :omniauthable,
