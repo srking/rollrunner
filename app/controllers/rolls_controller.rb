@@ -13,11 +13,17 @@ class RollsController < ApplicationController
     @included_ingredients = @roll.ingredients.map do |i|
       i.id
     end
+    @included_ingredients ||= []
   end
 
   # GET /rolls/new
   def new
+    @order = Order.find(params[:order_id])
     @roll = Roll.new
+    # @included_ingredients = @roll.ingredients.map do |i|
+    #   i.id
+    # end
+    @included_ingredients ||= []
   end
 
   # GET /rolls/1/edit
@@ -27,16 +33,19 @@ class RollsController < ApplicationController
   # POST /rolls
   # POST /rolls.json
   def create
+    @included_ingredients ||= []
     @order = Order.find(params[:order_id])
     @roll = @order.rolls.create(roll_params)
     @roll.owner = current_user
-    Ingredient.all do |ingredient|
-      @roll.ingredients << ingredient
+    params[:roll][:ingredients].each do |ingredient_id|
+      if ingredient = Ingredient.where(:id => ingredient_id).first
+        @roll.ingredients << ingredient
+      end
     end
 
     respond_to do |format|
       if @roll.save
-        format.html { redirect_to @roll, notice: 'Roll was successfully created.' }
+        format.html { redirect_to @order, notice: 'Roll was successfully created.' }
         format.json { render :show, status: :created, location: @roll }
       else
         format.html { render :new }
@@ -84,6 +93,6 @@ class RollsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def roll_params
-      params.permit(:order_id)
+      params.require(:roll).permit(:ingredients)
     end
 end
