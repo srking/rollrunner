@@ -17,7 +17,7 @@
           = roll.ingredients.map(&:name).join(' | ')
           %br
           %br
-          = link_to 'Edit', roll_path(roll), class: "btn btn-primary btn-sm"
+          = link_to 'Edit', edit_roll_path(roll), class: "btn btn-primary btn-sm"
       .list-group-separator
       %br
 

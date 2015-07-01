@@ -1,7 +1,23 @@
 %h1 Editing roll
 
-= render 'form'
+= form_for(@roll) do |f|
+  %fieldset
+    - if @roll.errors.any?
+      #error_explanation
+        %h2= "#{pluralize(@roll.errors.count, "error")} prohibited this roll from being saved:"
+        %ul
+          - @roll.errors.full_messages.each do |msg|
+            %li= msg
+    - Ingredient.all.each do |ingredient|
+      .form-group
+        .checkbox
+          %label.checkbox-inline
+            = f.check_box(:ingredients, { :multiple => true, :checked => @included_ingredients.include?(ingredient.id) }, ingredient.id)
+            = ingredient.name
 
-= link_to 'Show', @roll
-\|
-= link_to 'Back', rolls_path
+
+    %br
+    %button.btn.btn-primary.btn-lg{:type => "submit"}
+      Update Roll
+
+= link_to 'Back', order_path(@order)

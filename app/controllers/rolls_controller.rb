@@ -28,6 +28,11 @@ class RollsController < ApplicationController
 
   # GET /rolls/1/edit
   def edit
+    @order = @roll.order
+    @included_ingredients = @roll.ingredients.map do |i|
+      i.id
+    end
+    @included_ingredients ||= []
   end
 
   # POST /rolls
@@ -65,7 +70,7 @@ class RollsController < ApplicationController
         end
       end
       if @roll.update(roll_params)
-        format.html { redirect_to @roll, notice: 'Roll was successfully updated.' }
+        format.html { redirect_to @roll.order, notice: 'Roll was successfully updated.' }
         format.json { render :show, status: :ok, location: @roll }
       else
         format.html { render :edit }
