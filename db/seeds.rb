@@ -1,5 +1,6 @@
 Ingredient.create(name: 'Link sausage')
 Ingredient.create(name: 'Lorne sausage')
+Ingredient.create(name: 'Veggie sausage')
 Ingredient.create(name: 'Bacon')
 Ingredient.create(name: 'Fried egg')
 Ingredient.create(name: 'Scrambled egg')
