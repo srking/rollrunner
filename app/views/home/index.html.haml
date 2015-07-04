@@ -27,7 +27,7 @@
         %br
 
 - else
-  %p You have not created any open orders.
+  %p You have not created any orders.
 
 
 - if @domain_orders.any?
@@ -48,4 +48,4 @@
 
 - else
   %p
-    There are no #{'other ' if @user_orders.any?}open orders in your domain.
+    Nobody else has created an order#{' either' unless @user_orders.any?}.
