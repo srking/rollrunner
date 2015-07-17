@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cafe_id: 
+  ingredient_id: 
+  price: 9.99
+  doubler_price: 9.99
+  type: 1
+
+two:
+  cafe_id: 
+  ingredient_id: 
+  price: 9.99
+  doubler_price: 9.99
+  type: 1
