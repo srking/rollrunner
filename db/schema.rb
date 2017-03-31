@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717231353) do
+ActiveRecord::Schema.define(version: 20150717232751) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cafe_ingredients", force: :cascade do |t|
+    t.integer  "cafe_id"
+    t.integer  "ingredient_id"
+    t.decimal  "price",         precision: 10, scale: 2
+    t.decimal  "doubler_price", precision: 10, scale: 2
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "cafe_ingredients", ["cafe_id"], name: "index_cafe_ingredients_on_cafe_id", using: :btree
+  add_index "cafe_ingredients", ["ingredient_id"], name: "index_cafe_ingredients_on_ingredient_id", using: :btree
 
   create_table "cafes", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -92,6 +104,8 @@ ActiveRecord::Schema.define(version: 20150717231353) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "cafe_ingredients", "cafes"
+  add_foreign_key "cafe_ingredients", "ingredients"
   add_foreign_key "orders", "domains"
   add_foreign_key "orders", "users", column: "owner_id"
   add_foreign_key "roll_ingredients", "ingredients"
